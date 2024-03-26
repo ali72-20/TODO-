@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="bg">#060E1E</color>
+    <color name="Texts">@color/black</color>
+    <color name="fragmentText">@color/white</color>
+    <color name="bottomAppbar">@color/bg</color>
+</resources>

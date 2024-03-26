@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bottomAppbar">@color/white</color>
+    <color name="blue">#5D9CEC</color>
+    <color name="bg">#DFECDB</color>
+    <color name="appBar">@color/blue</color>
+    <color name="Texts">@color/white</color>
+    <color name="bottom_sel">#5D9CEC</color>
+    <color name="bottom_nsel">#C8C9CB</color>
+    <color name="fragmentText">@color/black</color>
+</resources>
