@@ -105,4 +105,21 @@
             android:hint="@string/select_time"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabTaskDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:src="@drawable/done_task"
+        android:tintMode="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/select_time_til"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:padding="16dp"
+        android:layout_marginBottom="232dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

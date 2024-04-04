@@ -51,7 +51,7 @@
                 tools:text="Play Basket Ball" />
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
@@ -62,7 +62,6 @@
                 android:gravity="start|center_vertical"
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="12sp"
-                app:drawableStartCompat="@drawable/ic_time"
                 app:drawableTint="?attr/colorOnBackground"
                 app:layout_constraintBottom_toBottomOf="@id/dragging_bar"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,17 +1,15 @@
-package com.example.todo
+package com.example.todo.ui.ui.home
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
-import com.example.todo.R.drawable.done_task
+import com.example.todo.R
 import com.example.todo.database.myDataBase
 import com.example.todo.databinding.ActivityMainBinding
-import com.example.todo.fragments.AddTaskFragment
-import com.example.todo.fragments.SettingsFragment
-import com.example.todo.fragments.showtask.TasksFragment
-import com.google.android.material.navigation.NavigationBarItemView
-import com.google.android.material.navigation.NavigationBarView
+import com.example.todo.ui.ui.fragments.AddTaskFragment
+import com.example.todo.ui.ui.fragments.SettingsFragment
+import com.example.todo.ui.ui.showtask.TasksFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityMainBinding
@@ -20,24 +18,19 @@ class MainActivity : AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         initView()
-        viewBinding.navAddTask.setOnClickListener{item->
-            val currentFragment : Fragment = AddTaskFragment()
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container,currentFragment)
-                .commit()
-        }
     }
     private fun initView() {
-        viewBinding.bottomNav.setOnItemSelectedListener { item->
-            val currentFragment : Fragment = when(item.itemId){
-                R.id.nav_add_task->{
-                    AddTaskFragment()
-                }
-                R.id.nav_list_item->{
+        viewBinding.bottomNav.setOnItemSelectedListener { item ->
+            val currentFragment: Fragment = when (item.itemId) {
+                R.id.nav_list_item -> {
                     TasksFragment()
                 }
-                R.id.nav_setting_item->{
+
+                R.id.nav_setting_item -> {
                     SettingsFragment()
-                } else ->{
+                }
+
+                else -> {
                     TasksFragment()
                 }
             }
@@ -45,13 +38,23 @@ class MainActivity : AppCompatActivity() {
             true
         }
         viewBinding.bottomNav.selectedItemId = R.id.nav_list_item
-
+        viewBinding.fabAddTask.setOnClickListener {
+            showAddTaskBottomSheet()
+        }
     }
 
+    private fun showAddTaskBottomSheet() {
+        val addTaskSheet = AddTaskFragment()
+        addTaskSheet.show(supportFragmentManager,null)
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun pushFragment(currentFragment: Fragment) {
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container,currentFragment)
             .commit()
+
     }
 }

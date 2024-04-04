@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.todo.database.dao.TasksDao
+import com.example.todo.ui.ui.home.MainActivity
 
 abstract class myDataBase : RoomDatabase(){
 
@@ -17,12 +18,14 @@ abstract class myDataBase : RoomDatabase(){
             if(db != null) {
                 db = Room.databaseBuilder(
                     context.applicationContext,
-                    myDataBase::class.java,
-                    databaseName
+                    myDataBase::class.java, databaseName
                 ).fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
             }
         }
+         fun getInstance() : myDataBase{
+             return db!!
+         }
     }
 }

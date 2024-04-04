@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.todo.databinding.ActivitySplasheToDoBinding
+import com.example.todo.ui.ui.home.MainActivity
 
 class SplasheToDo : AppCompatActivity() {
     lateinit var viewBinding : ActivitySplasheToDoBinding
@@ -17,7 +18,7 @@ class SplasheToDo : AppCompatActivity() {
 
     private fun startApp() {
         Handler(mainLooper).postDelayed({
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         },2000)
     }

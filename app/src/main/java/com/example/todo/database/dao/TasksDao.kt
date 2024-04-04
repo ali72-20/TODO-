@@ -15,7 +15,7 @@ interface TasksDao {
     @Delete
     fun deleteTask(task: Task)
     @Query("select* from task")
-    fun getAllTasks() :  List<Task>
+    fun getAllTasks() :  MutableList<Task>
     @Query("select* from task where dateTime = :dateTime")
     fun getTaskByDate(dateTime : Long)
 }
