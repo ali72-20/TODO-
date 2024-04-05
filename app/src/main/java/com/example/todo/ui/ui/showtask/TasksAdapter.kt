@@ -1,12 +1,9 @@
 package com.example.todo.ui.ui.showtask
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.todo.database.model.Task
-import com.example.todo.databinding.FragmentTasksBinding
 import com.example.todo.databinding.ItemTaskBinding
 
 class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<TasksAdapter.ViewHolder>(){
@@ -23,7 +20,10 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
         return ViewHolder(itemBinding)
     }
 
-    fun changdeData(newTasks : MutableList<Task>){
+    fun changeData(newTasks: List<Task>){
+        if(tasks == null){
+            tasks = mutableListOf()
+        }
         tasks?.clear()
         tasks?.addAll(newTasks)
         notifyDataSetChanged()

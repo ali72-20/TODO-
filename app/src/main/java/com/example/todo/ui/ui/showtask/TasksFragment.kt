@@ -25,11 +25,13 @@ class TasksFragment : Fragment() {
         retreiveTasksList()
     }
 
+
     private fun retreiveTasksList() {
-//        val allTasks = myDataBase.getInstance().getDoa().getAllTasks()
-//        if(allTasks.size != 0)
-//           adapter.changdeData(allTasks)
+        val allTasks = myDataBase.getInstance().getDoa().getAllTasks()
+        adapter.changeData(allTasks)
     }
+
+
 
     val adapter = TasksAdapter()
     private fun setUpRecyclerView() {
