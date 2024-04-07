@@ -17,8 +17,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        myDataBase.init(this.application)
         initView()
+
     }
+
+
+
     private fun initView() {
         viewBinding.bottomNav.setOnItemSelectedListener { item ->
             val currentFragment: Fragment = when (item.itemId) {
@@ -47,14 +52,17 @@ class MainActivity : AppCompatActivity() {
         val addTaskSheet = AddTaskFragment()
         addTaskSheet.show(supportFragmentManager,null)
     }
-
     @SuppressLint("SetTextI18n")
     private fun pushFragment(currentFragment: Fragment) {
-
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container,currentFragment)
             .commit()
+        if(currentFragment == SettingsFragment()){
+            viewBinding.toolparTv.text = "Settings"
+        }else{
+            viewBinding.toolparTv.text = "ToDo List"
+        }
 
     }
 }

@@ -19,5 +19,7 @@ data class Task(
     @ColumnInfo
     var isDone :Boolean? =false,
     @ColumnInfo
-    var dateTime:Long?=null
+    var date:Long?=null,
+    @ColumnInfo
+    var time:Long?= null
 ) : Parcelable

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.todo.database.myDataBase
 import com.example.todo.databinding.FragmentTasksBinding
+import java.util.Calendar
 
 class TasksFragment : Fragment() {
     lateinit var viewBinding: FragmentTasksBinding
@@ -15,23 +16,23 @@ class TasksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentTasksBinding.inflate(layoutInflater, container, false)
+        viewBinding = FragmentTasksBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
-        retreiveTasksList()
     }
 
-
-    private fun retreiveTasksList() {
+    override fun onResume() {
+        super.onResume()
+        retreiveTasksList()
+    }
+     fun retreiveTasksList() {
         val allTasks = myDataBase.getInstance().getDoa().getAllTasks()
         adapter.changeData(allTasks)
     }
-
-
 
     val adapter = TasksAdapter()
     private fun setUpRecyclerView() {

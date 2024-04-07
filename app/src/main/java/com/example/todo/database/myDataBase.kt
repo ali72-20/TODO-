@@ -24,6 +24,7 @@ abstract class myDataBase : RoomDatabase(){
                         myDataBase::class.java,
                         database_KAY,
                     )
+
                         .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()

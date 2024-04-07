@@ -17,10 +17,7 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentSettingBinding.inflate(layoutInflater,container,false)
+        viewBinding = FragmentSettingBinding.inflate(inflater,container,false)
         return viewBinding.root
-    }
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.setteing_lang, menu)
     }
 }

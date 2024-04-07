@@ -1,18 +1,18 @@
 package com.example.todo.ui.ui.fragments
-
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.todo.database.model.Task
 import com.example.todo.database.myDataBase
 import com.example.todo.databinding.FragmentAddTaskBinding
+import com.example.todo.ui.ui.formatDate
+import com.example.todo.ui.ui.formatTime
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.text.SimpleDateFormat
 import java.util.Calendar
-
 class AddTaskFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAddTaskBinding
     override fun onCreateView(
@@ -27,7 +27,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
-
     }
 
     private fun setUpViews() {
@@ -81,10 +80,18 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             .insertTask(Task(
                 title = binding.titleTil.text.toString(),
                 content = binding.taskDiscriptionTil.text.toString(),
-                dateTime = calendar.timeInMillis,
-            ))
-
+                date = calendar.timeInMillis,
+                time =  calendar.timeInMillis
+            )
+            )
+        Toast.makeText(
+            requireContext(),
+            "Task saved successfully",
+            Toast.LENGTH_LONG,
+        ).show()
+        dismiss( )
     }
+
 
     private fun isValideTaskInput(): Boolean {
         var isValid = true
@@ -117,12 +124,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 }
 
 
-fun Calendar.formatTime() : String{
-    val format = SimpleDateFormat("h:mm a")
-    return format.format(time)
-}
 
-fun Calendar.formatDate() : String{
-    val format = SimpleDateFormat("dd/MM/yyyy")
-    return format.format(time)
-}
+
+

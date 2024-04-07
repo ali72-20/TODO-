@@ -16,6 +16,6 @@ interface TasksDao {
     fun deleteTask(task: Task)
     @Query("select* from Task")
     fun getAllTasks() :  List<Task>
-    @Query("select* from task where dateTime = :dateTime")
-   fun getTaskByDate(dateTime : Long) :List<Task>
+    @Query("select* from task where date = :date order by time ASC")
+   fun getTaskByDate(date : Long) :List<Task>
 }
