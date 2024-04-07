@@ -11,6 +11,8 @@ import com.example.todo.database.myDataBase
 import com.example.todo.databinding.FragmentAddTaskBinding
 import com.example.todo.ui.ui.formatDate
 import com.example.todo.ui.ui.formatTime
+import com.example.todo.ui.ui.getDateOnly
+import com.example.todo.ui.ui.getTimeOnly
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.Calendar
 class AddTaskFragment : BottomSheetDialogFragment() {
@@ -80,8 +82,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             .insertTask(Task(
                 title = binding.titleTil.text.toString(),
                 content = binding.taskDiscriptionTil.text.toString(),
-                date = calendar.timeInMillis,
-                time =  calendar.timeInMillis
+                date = calendar.getDateOnly(),
+                time =  calendar.getTimeOnly()
             )
             )
         Toast.makeText(

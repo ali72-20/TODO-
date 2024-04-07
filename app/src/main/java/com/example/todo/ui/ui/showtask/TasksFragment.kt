@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.todo.database.myDataBase
 import com.example.todo.databinding.FragmentTasksBinding
+import com.example.todo.ui.ui.getDateOnly
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.util.Calendar
 
 class TasksFragment : Fragment() {
@@ -22,20 +24,31 @@ class TasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
+        setUpView()
     }
 
     override fun onResume() {
         super.onResume()
         retreiveTasksList()
     }
-     fun retreiveTasksList() {
-        val allTasks = myDataBase.getInstance().getDoa().getAllTasks()
+
+    val currentDate = Calendar.getInstance()
+    fun retreiveTasksList() {
+        val allTasks = myDataBase.getInstance().getDoa().getTaskByDate(currentDate.getDateOnly())
         adapter.changeData(allTasks)
     }
 
     val adapter = TasksAdapter()
-    private fun setUpRecyclerView() {
+    private fun setUpView() {
         viewBinding.recView.adapter = adapter
+
+        viewBinding.calendarView.setOnDateChangedListener { widegt,
+                                                            date, selected ->
+            if (selected) {
+                currentDate.set(date.year, date.month - 1, date.day)
+                retreiveTasksList()
+            }
+        }
+        viewBinding.calendarView.selectedDate = CalendarDay.today()
     }
 }

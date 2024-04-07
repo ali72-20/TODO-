@@ -9,7 +9,7 @@ import com.example.todo.database.dao.TasksDao
 import com.example.todo.database.model.Task
 import com.example.todo.ui.ui.home.MainActivity
 
-@Database (entities = [Task::class], version = 2, exportSchema = true)
+@Database (entities = [Task::class], version = 3, exportSchema = true)
 abstract class myDataBase : RoomDatabase(){
 
     abstract fun getDoa() : TasksDao

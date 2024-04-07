@@ -24,7 +24,7 @@ fun Calendar.getDateOnly() : Long{
 fun Calendar.getTimeOnly() : Long{
     val calendar = Calendar.getInstance()
     calendar.time = this.time
-    calendar.set(this.get(Calendar.HOUR),this.get(Calendar.MINUTE),this.get(Calendar.MILLISECOND))
+    calendar.set(0,0,0,this.get(Calendar.HOUR),this.get(Calendar.MINUTE),this.get(Calendar.MILLISECOND))
     calendar.set(Calendar.MILLISECOND,0)
-    return calendar.timeInMillis
+    return calendar.time.time
 }
