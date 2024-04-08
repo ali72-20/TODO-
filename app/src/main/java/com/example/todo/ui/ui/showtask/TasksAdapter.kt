@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.database.model.Task
 import com.example.todo.databinding.ItemTaskBinding
+import java.util.Calendar
 
 class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<TasksAdapter.ViewHolder>(){
     class ViewHolder(val binding:ItemTaskBinding) : RecyclerView.ViewHolder(binding.root){
@@ -29,12 +30,27 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
         tasks?.addAll(newTasks)
         notifyDataSetChanged()
     }
+    fun updateTask(pos:Int){
+        notifyItemChanged(pos)
+    }
     override fun getItemCount(): Int = tasks?.size?:0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = tasks!![position]
         holder.bind(task)
+        onTaskClickListener?.let {Listener->
+            holder.itemView.setOnClickListener {
+                val title : String = task.title.toString()
+                val content : String = task.content.toString()
+                val date : Long? = task.date
+                val time : Long? = task.time
+                Listener.onTackClick(title,content,date,time,position)
+            }
+        }
     }
 
-
+    var onTaskClickListener:OnTaskClickListener?=null
+    fun interface OnTaskClickListener{
+        fun onTackClick(title:String,content:String, date:Long?,time:Long?,position: Int)
+    }
 }

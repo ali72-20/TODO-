@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         viewBinding.fabAddTask.setOnClickListener {
             showAddTaskBottomSheet()
         }
+
     }
 
     private fun showAddTaskBottomSheet() {
@@ -57,11 +58,6 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container,currentFragment)
             .commit()
-        if(currentFragment == SettingsFragment()){
-            viewBinding.toolparTv.text = "Settings"
-        }else{
-            viewBinding.toolparTv.text = "ToDo List"
-        }
-
+        viewBinding.toolparTv.text = "To Do List"
     }
 }

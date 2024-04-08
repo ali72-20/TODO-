@@ -72,4 +72,5 @@
     <include layout="@layout/content_home"
         android:id="@+id/content_home"
         />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
