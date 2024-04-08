@@ -11,7 +11,7 @@ interface TasksDao {
     @Insert
     fun insertTask(task: Task)
     @Update
-   fun updateTask(task: Task)
+    fun updateTask(task: Task)
     @Delete
     fun deleteTask(task: Task)
     @Query("select* from Task")

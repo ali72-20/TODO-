@@ -2,9 +2,11 @@ package com.example.todo.ui.ui.showtask
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.todo.TaskConst
 import com.example.todo.database.model.Task
 import com.example.todo.database.myDataBase
@@ -16,12 +18,9 @@ import com.example.todo.ui.ui.getTimeOnly
 import java.util.Calendar
 
 class EditeTask : AppCompatActivity() {
-    lateinit var viewBinding: ActivityEditeTaskBinding
-    lateinit var title : String
-    lateinit var content: String
-     var date : Long? = null
-     var time : Long? = null
-     var position : Int? = null
+    private lateinit var viewBinding: ActivityEditeTaskBinding
+    lateinit var task: Task
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityEditeTaskBinding.inflate(layoutInflater)
@@ -30,16 +29,13 @@ class EditeTask : AppCompatActivity() {
         initViews()
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun initViews() {
         viewBinding.toolparTv.text = "To Do List"
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = intent.getStringExtra(TaskConst.title)?:""
-        content = intent.getStringExtra(TaskConst.content)?:""
-        date = intent.getLongExtra(TaskConst.date,0)
-        time = intent.getLongExtra(TaskConst.time,0)
-        position =  intent.getIntExtra(TaskConst.pos,0)
-        pushView()
+        task = intent.getParcelableExtra(TaskConst.task,Task::class.java)?:Task()
+        bindView(task)
         setUpViews()
     }
 
@@ -50,7 +46,7 @@ class EditeTask : AppCompatActivity() {
         viewBinding.selectDateTil.setOnClickListener {
             showDatePicker()
         }
-        viewBinding.btnSave.setOnClickListener{save->
+        viewBinding.btnSave.setOnClickListener{
             onEditTasks()
         }
     }
@@ -85,19 +81,14 @@ class EditeTask : AppCompatActivity() {
 
 
     val calendar = Calendar.getInstance()
-    val adapter = TasksAdapter()
     private fun onEditTasks() {
         if(!isValideTaskInput()){
+            Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show()
             return
         }
-        myDataBase.getInstance().getDoa().updateTask(Task(
-            title = viewBinding.title.toString(),
-            content = viewBinding.description.toString(),
-            date = calendar.getDateOnly(),
-            time = calendar.getTimeOnly()
-        ))
-        adapter.updateTask(position!!)
+        myDataBase.getInstance(this).getDoa().updateTask(task)
         Toast.makeText(this,"Task edited successfully", Toast.LENGTH_SHORT).show()
+        finish()
     }
     private fun isValideTaskInput(): Boolean {
         var isValid = true
@@ -109,12 +100,14 @@ class EditeTask : AppCompatActivity() {
             viewBinding.titleTil.error = "You need to enter task title"
             isValid = false
         }else{
+            task.title = title
             viewBinding.titleTil.error = null
         }
         if(description.isBlank()){
             viewBinding.descriptionTil.error = "You need to write task description"
             isValid = false
         }else{
+            task.content = description
             viewBinding.descriptionTil.error = null
         }
         if(date.isBlank()){
@@ -128,11 +121,11 @@ class EditeTask : AppCompatActivity() {
         return isValid
     }
 
-    private fun pushView() {
-        viewBinding.title.setText(title)
-        viewBinding.description.setText(content)
-        viewBinding.selectDateTv.setText(date.toString())
-        viewBinding.selectTimeTv.setText(time.toString())
+    private fun bindView(task:Task) {
+        viewBinding.title.setText(task.title.toString())
+        viewBinding.description.setText(task.content.toString())
+        viewBinding.selectDateTv.setText(task.date.toString())
+        viewBinding.selectTimeTv.setText(task.time.toString())
         viewBinding.selectDateTv.text = calendar.formatDate()
         viewBinding.selectTimeTv.text = calendar.formatTime()
     }

@@ -39,7 +39,7 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
         val task = tasks!![position]
         holder.bind(task)
         onTaskClickListener?.let {Listener->
-            holder.itemView.setOnClickListener {
+            holder.binding.title.setOnClickListener {
                 val title : String = task.title.toString()
                 val content : String = task.content.toString()
                 val date : Long? = task.date
@@ -47,10 +47,20 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
                 Listener.onTackClick(title,content,date,time,position)
             }
         }
+        onDeletedTaskListener?.let {listener ->
+            holder.binding.leftitem.setOnClickListener {
+                listener.onDeletedTaskClick(task,position)
+            }
+        }
     }
 
     var onTaskClickListener:OnTaskClickListener?=null
     fun interface OnTaskClickListener{
         fun onTackClick(title:String,content:String, date:Long?,time:Long?,position: Int)
+    }
+
+    var onDeletedTaskListener : OnDeletedTaskListener? = null
+    fun interface OnDeletedTaskListener{
+        fun onDeletedTaskClick(task: Task,position: Int)
     }
 }

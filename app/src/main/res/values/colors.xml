@@ -11,4 +11,5 @@
     <color name="bottom_nsel">#C8C9CB</color>
     <color name="fragmentText">@color/black</color>
     <color name="done">#61E757</color>
+    <color name="red">#FF0000</color>
 </resources>

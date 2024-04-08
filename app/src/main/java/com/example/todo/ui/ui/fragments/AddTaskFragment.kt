@@ -78,12 +78,13 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         if(!isValideTaskInput()){
             return
         }
-        myDataBase.getInstance().getDoa()
+        myDataBase.getInstance(requireContext()).getDoa()
             .insertTask(Task(
                 title = binding.titleTil.text.toString(),
                 content = binding.taskDiscriptionTil.text.toString(),
                 date = calendar.getDateOnly(),
-                time =  calendar.getTimeOnly()
+                time =  calendar.getTimeOnly(),
+                isDone = false
             )
             )
         Toast.makeText(

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.todo.R
 import com.example.todo.TaskConst
+import com.example.todo.database.model.Task
 import com.example.todo.database.myDataBase
 import com.example.todo.databinding.FragmentTasksBinding
 import com.example.todo.databinding.ItemTaskBinding
@@ -32,19 +33,22 @@ class TasksFragment : Fragment() {
         setUpView()
        adapter.onTaskClickListener = TasksAdapter.OnTaskClickListener { title, content, date, time,pos->
            val intent = Intent(requireContext(), EditeTask::class.java)
-           intent.putExtra(TaskConst.title , title)
-           intent.putExtra(TaskConst.content , content)
-           intent.putExtra(TaskConst.date , date)
-           intent.putExtra(TaskConst.time , time)
-           intent.putExtra(TaskConst.pos,pos)
+           val passedTask : Task = Task(
+               title = title,
+               content = content,
+               date = date,
+               time = time
+           )
+           intent.putExtra(TaskConst.task,passedTask)
            startActivity(intent)
        }
 
+        adapter.onDeletedTaskListener = TasksAdapter.OnDeletedTaskListener {task,pos->
+            myDataBase.getInstance(requireContext()).getDoa().deleteTask(task)
+            adapter.notifyItemRemoved(pos)
+            retreiveTasksList()
+        }
     }
-
-
-
-
     override fun onResume() {
         super.onResume()
         retreiveTasksList()
@@ -52,7 +56,7 @@ class TasksFragment : Fragment() {
 
     val currentDate = Calendar.getInstance()
     fun retreiveTasksList() {
-        val allTasks = myDataBase.getInstance().getDoa().getTaskByDate(currentDate.getDateOnly())
+        val allTasks = myDataBase.getInstance(requireContext()).getDoa().getTaskByDate(currentDate.getDateOnly())
         adapter.changeData(allTasks)
     }
 
@@ -69,5 +73,7 @@ class TasksFragment : Fragment() {
         }
         viewBinding.calendarView.selectedDate = CalendarDay.today()
     }
+
+
 
 }

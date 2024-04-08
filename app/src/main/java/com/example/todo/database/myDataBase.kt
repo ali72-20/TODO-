@@ -17,10 +17,10 @@ abstract class myDataBase : RoomDatabase(){
     companion object {
         private var database: myDataBase? = null
         private const val database_KAY = "taskDatabase"
-        fun init(app:Application) {
+        fun getInstance(context: Context) : myDataBase{
                 if (database == null) {
                     database = Room.databaseBuilder(
-                        app.applicationContext,
+                        context.applicationContext,
                         myDataBase::class.java,
                         database_KAY,
                     )
@@ -29,9 +29,7 @@ abstract class myDataBase : RoomDatabase(){
                         .allowMainThreadQueries()
                         .build()
                 }
+               return database!!
             }
-        fun getInstance() : myDataBase{
-            return database!!
-        }
     }
 }

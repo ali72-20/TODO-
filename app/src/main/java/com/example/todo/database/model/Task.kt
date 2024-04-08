@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Task(
     @PrimaryKey(autoGenerate = true)
-    val id : Int?=null,
+    val id : Int? = null,
     @ColumnInfo
     var  title :String? = null,
     @ColumnInfo
