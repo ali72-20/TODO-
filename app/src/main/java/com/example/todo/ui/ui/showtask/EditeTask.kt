@@ -133,6 +133,8 @@ class EditeTask : AppCompatActivity() {
         viewBinding.description.setText(content)
         viewBinding.selectDateTv.setText(date.toString())
         viewBinding.selectTimeTv.setText(time.toString())
+        viewBinding.selectDateTv.text = calendar.formatDate()
+        viewBinding.selectTimeTv.text = calendar.formatTime()
     }
 
     override fun onSupportNavigateUp(): Boolean {
