@@ -3,6 +3,7 @@ package com.example.todo.ui.ui.showtask
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.database.model.Task
 import com.example.todo.databinding.ItemTaskBinding
@@ -47,9 +48,18 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
                 Listener.onTackClick(title,content,date,time,position)
             }
         }
+
+
         onDeletedTaskListener?.let {listener ->
-            holder.binding.leftitem.setOnClickListener {
+            holder.binding.deleteTil.setOnClickListener {
                 listener.onDeletedTaskClick(task,position)
+            }
+        }
+
+
+        onTaskDoneClickListener?.let { listener->
+            holder.binding.btnTaskIsDone.setOnClickListener{
+                listener.onTaskDone()
             }
         }
     }
@@ -62,5 +72,11 @@ class TasksAdapter(var tasks: MutableList<Task>? = null) : RecyclerView.Adapter<
     var onDeletedTaskListener : OnDeletedTaskListener? = null
     fun interface OnDeletedTaskListener{
         fun onDeletedTaskClick(task: Task,position: Int)
+    }
+
+    var onTaskDoneClickListener : OnTaskDoneClickListener?= null
+
+    fun interface OnTaskDoneClickListener {
+        fun onTaskDone()
     }
 }

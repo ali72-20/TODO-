@@ -48,6 +48,10 @@ class TasksFragment : Fragment() {
             adapter.notifyItemRemoved(pos)
             retreiveTasksList()
         }
+
+//        adapter.onTaskDoneClickListener = TasksAdapter.OnTaskDoneClickListener {task->
+//
+//        }
     }
     override fun onResume() {
         super.onResume()
